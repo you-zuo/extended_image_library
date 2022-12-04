@@ -270,6 +270,8 @@ class ExtendedNetworkImageProvider
   }
 
   Future<HttpClientResponse> _getResponse(Uri resolved) async {
+    httpClient.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
     final HttpClientRequest request = await httpClient.getUrl(resolved);
     headers?.forEach((String name, String value) {
       request.headers.add(name, value);
